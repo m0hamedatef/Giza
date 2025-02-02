@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: abanobmorkos10/backend
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+        env:
+        - name: DB_HOST 
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: database_url
+
+        - name: DB_USER 
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: username
+
+        - name: DB_PASSWORD 
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: password
+
+        - name: DB_NAME 
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: database
+
+      # Ensure that the backend waits for the database to be ready
+      # initContainers:
+      # - name: wait-for-db
+      #   image: busybox
+      #   command: ['sh', '-c', 'until nc -z db 5432; do echo waiting for db; sleep 2; done;']
+
+--- 
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  selector:
+    app: backend
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80

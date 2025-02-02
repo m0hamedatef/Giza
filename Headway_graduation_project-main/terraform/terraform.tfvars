@@ -1,0 +1,26 @@
+vpc_name = "eks_vpc"
+vpc_cidr = "10.0.0.0/16"
+gw_name = "eks_gw"
+avail_zones = ["us-east-1a","us-east-1b"]
+private_subnets = ["10.0.1.0/24","10.0.2.0/24"]
+database_subnets = ["10.0.5.0/24","10.0.6.0/24"]
+private_subnet_name = ["private_subnet_1a","private_subnet_1b"]
+databse_subnet_name = ["databse_subnet_1a","databse_subnet_1b"]
+public_subnets = ["10.0.3.0/24","10.0.4.0/24"]
+public_subnet_name = ["public_subnet_1a","public_subnet_1b"]
+cluster_name = "my_cluster"
+ami = "ami-04b70fa74e45c3917"
+ec2_type = "t2.medium"
+ec2_avail = "us-east-1a"
+key = "terraform"
+credentials = {
+  username = "username"
+  password = "password"
+}
+account_id = "339712792713"
+engine                 = "postgres"
+engine_version          = "16.3"
+identifier              = "db"
+instance_class          = "db.m5d.large"
+allocated_storage       = 200
+db_name                 = "postgresdb"
