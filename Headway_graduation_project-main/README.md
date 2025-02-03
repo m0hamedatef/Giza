@@ -1,4 +1,4 @@
-# NTI DevOps Final Project
+# Giza Headway Final Project
 
 ![Project Architecture](./Animation.gif)
 
